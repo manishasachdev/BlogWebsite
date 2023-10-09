@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const connectDB=require("./config/db.js")
 const userRouter = require("./routes/userRoute.js");
 
-dotenv.config();
+dotenv.config(); 
 const PORT =5000 ;
 connectDB();
 const app = express() // creating instance of express
