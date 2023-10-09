@@ -2,11 +2,11 @@
   "name": "BlogWebsite",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-      "start": "node index.js",
-      "build": "echo \"No build specified\" && exit 1",
-       "test": "echo \"No test specified\" && exit 1"
+    "start": "node index.js",
+    "build": "echo \"No build specified\" && exit 1",
+    "test": "echo \"No test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
