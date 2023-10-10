@@ -7,7 +7,7 @@ const connectDB=require("./config/db.js")
 const userRouter = require("./routes/userRoute.js");
 
 dotenv.config(); 
-const PORT =5000 ;
+const PORT =3000 ;
 connectDB();
 const app = express() // creating instance of express
 app.use(express.json())  // to parse json which we will get from fE
