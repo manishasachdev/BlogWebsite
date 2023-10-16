@@ -14,6 +14,7 @@ const PORT =3000 ;
 connectDB();
 const app = express() // creating instance of express
 app.use(express.json())  // to parse json which we will get from fE
+//cors issue
 app.use(cors());
 
 //routes api
