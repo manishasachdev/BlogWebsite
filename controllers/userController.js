@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const uploadPicture = require("../middlewares/UploadMiddlewarePicture");
+const fileRemover=require('../utils/fileRemoves')
 
 
 exports.registerUser = async (req, res) => {
@@ -76,7 +78,7 @@ exports.loginUser = async (req, res) => {
 
 exports.userProfile = async (req, res) => {
     try {
-        
+  
         let user = await User.findById(req.user._id);
         if (user) {
             return res.status(200).json({
@@ -143,3 +145,50 @@ exports.updateProfile = async (req, res) => {
   }
 }
 
+exports.updateProfilePicture =  async(req, res) => {
+  try {
+    const upload = uploadPicture.single("profilePicture");
+    upload(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ message: "Unknown error updating profile pic", err});
+      } else {
+        if (req.file) {
+          const updatedUser = await User.findByIdAndUpdate(req.user._id, {
+            avtar:req.file.filename
+          }, { new: true })
+          console.log('upda', updatedUser)
+          res.json({
+            _id: updatedUser._id,
+            avtar: updatedUser.avtar,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            verified: updatedUser.verified,
+            admin: updatedUser.admin,
+            token: await updatedUser.generateJWT(),
+          })
+        } else {
+          let filename;
+          let updatedUser = await User.findById(req.user._id)
+          filename = updatedUser.avtar;
+          updatedUser.avtar = "";
+          await updatedUser.save();
+          fileRemover(filename)
+          res.json({
+            _id: updatedUser._id,
+            avtar: updatedUser.avtar,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            verified: updatedUser.verified,
+            admin: updatedUser.admin,
+            token: await updatedUser.generateJWT(),
+          })
+
+        }
+      }
+    })
+  }
+  catch (error) {
+    console.log('ERr', error)
+    return res.status(400).json({ message: "Error in updating profile pic" });
+  }
+}

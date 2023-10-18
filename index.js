@@ -21,7 +21,7 @@ app.use(cors());
 app.use('/api/user',userRouter)
 
 app.get('/', (req, res) => {
-    res.send('server is runing!!!baby')
+    res.send('server is runing!!!baby...')
 })
 
 app.listen(PORT, ()=>{console.log(`Server is running on port ${PORT}`)})
