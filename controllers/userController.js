@@ -150,7 +150,7 @@ exports.updateProfilePicture =  async(req, res) => {
     const upload = uploadPicture.single("profilePicture");
     upload(req, res, async function (err) {
       if (err) {
-        return res.status(400).json({ message: "Unknown error updating profile pic", err});
+        return res.status(400).json({ message: "Unknown error updating profile pic**", err});
       } else {
         if (req.file) {
           const updatedUser = await User.findByIdAndUpdate(req.user._id, {

@@ -4,10 +4,17 @@ const path = require("path");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../uploads"));
+        const uploadPath = path.join(__dirname, "../uploads");
+        console.log("Destination Path:", uploadPath);
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
+        const uniqueFilename = `${Date.now()}-${file.originalname}`;
+        cb(null, uniqueFilename);
+
+           // Construct the GitHub raw content URL for the file
+        //    const githubUrl = baseGitHubUrl + '/' + uniqueFilename;
+        //    console.log("GitHub Raw Content URL:", githubUrl);
     }
 });
 

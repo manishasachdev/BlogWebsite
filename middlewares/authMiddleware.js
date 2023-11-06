@@ -23,4 +23,13 @@ const authGuard = async (req, res, next) => {
     return res.status(401).json({ message: "Not authorised, No token" });
   }
 };
+
+const adminGuard = (req, res, next) => {
+  if (req.user && req.user.admin) {
+    next();
+  } else {
+    return res.status(401).json({ message: "User is not an admin" });
+  }
+}
+
 module.exports = authGuard;
